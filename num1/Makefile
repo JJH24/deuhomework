@@ -1,0 +1,22 @@
+OBJECTS = divi.o add.o sub.o mult.o
+staticout : staticlib.a
+  cd ..;gcc -I./lib -L./lib main.c lib/$^ -o $@
+divi.o : divi.c
+  gcc -c -fPIC $<
+
+add.o : add.c
+  gcc -c $<
+
+sub.o : sub.c
+  gcc -c $<
+
+mult.o : mult.c
+  gcc -c $<
+
+staticlib.a : $(OBJECTS)
+  ar rcs $@ $^
+
+clean :
+  rm -f staticlib.a $(OBJECTS)
+  cd ..; rm staticout
+
